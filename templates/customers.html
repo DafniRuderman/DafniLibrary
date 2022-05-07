@@ -1,0 +1,129 @@
+{%extends 'layout.html'%}  
+
+{% block body%}
+<div class="container">
+  <br>
+  <!-------------------------  start search form bar ----------------------------------->
+  <form class="input-group" method="GET" class="form-inline my-2 my-lg-0">
+    <input
+      name="name"
+      class="form-control mr-sm-2"
+      type="text"
+      placeholder="Search customer by name ..."
+      aria-label="Search"
+    />
+    
+    <button class="btn btn-outline-primary" type="submit">Search</button>
+    
+
+    <a class="btn btn-outline-primary" type="button" href="/customers"
+      >Search all</a
+    >
+
+    <!-- Button trigger modal add customer -->
+
+    <button
+      style="position: sticky"
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      ADD NEW CUSTOMER
+    </button>
+    <!--  end Button trigger modal add customer -->
+    <br />
+  </form>
+  <!--------------------------  end search form ----------------------------------------->
+  <br />
+</div>
+
+<div class="container">
+  <!--------------------------------------- tables start -------------------------------------------->
+  <table class="table table-striped">
+    <thead class="thead-light">
+      <tr class="table table-dark">
+        <th scope="col" style="border-color: rgb(32, 32, 32);">ID</th>
+        <th scope="col" style="border-color: rgb(32, 32, 32);">Name</th>
+        <th scope="col" style="border-color: rgb(32, 32, 32);">City</th>
+        <th scope="col" style="border-color: rgb(32, 32, 32);">Age</th>
+        <th scope="col" style="border-color: rgb(32, 32, 32);">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for customer in customersList%}
+      <tr>
+        <td>{{customer.id}}</td>
+        <td>{{customer.Name}}</td>
+        <td>{{customer.City}}</td>
+        <td>{{customer.Age}}</td>
+        <td>
+          <a
+            class="btn btn-outline-danger"
+            href="/deleteCustomer?name={{customer.Name}}&id={{customer.id}}"
+            >Delete</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!------------------------------- tables end ----------------------------------------------------------->
+
+  <!-- start Modal add customer-->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add customer</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form action="/addCustomer" method="POST">
+          <div class="mb-3">
+            <label  class="form-label">Name:</label>
+            <input class="form-control" name="name" />
+          </div>
+          <div class="mb-3">
+            <label  class="form-label">City:</label>
+            <input class="form-control" name="city" />
+          </div>
+          <div class="mb-3">
+            <label  class="form-label">Age:</label>
+            <input
+              class="form-control"
+              type="number"
+              name="age"
+            />
+          </div>
+            
+            <input class="btn btn-primary" type="submit" />
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end modal add customer -->
+</div>
+{% endblock %}

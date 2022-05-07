@@ -1,0 +1,130 @@
+{%extends 'layout.html'%}
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+  <title>Library</title>
+</head>
+ {% block body%}
+  <body>
+    <main>
+      <div>
+        <div>
+          <div>
+            <video
+              style="
+                position: fixed;
+                right: 0;
+                bottom: 0;
+                min-width: 100%;
+                min-height: 100%;
+              "
+              autoplay
+              muted
+              loop
+            >
+              <source
+                style="size: 100%"
+                src="https://assets.mixkit.co/videos/preview/mixkit-happy-smiling-students-promote-college-education-9001-large.mp4"
+              />
+            </video>
+            <div
+              style="
+                position: fixed;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                color: #f1f1f1;
+                width: auto;
+                height: auto;
+                padding: 5px;
+                
+              "
+            >
+              <div>
+                <br><br><br>
+              </div>
+              <!-- about me -->
+              <div class="row">
+                <div class="col-lg-4">
+                  <img
+                    src="https://www.clipartmax.com/png/middle/34-340027_user-login-man-human-body-mobile-person-comments-person-icon-png.png"
+                    style="width: 100px; height: 100px; border-radius: 50%"
+                    alt=""
+                  />
+                  <h2>About me</h2>
+                  <p>
+                    Hi! My name is Dafni Ruderman. <br />
+                    I am 24 years old from Herzliya.
+                    <br> Today, i'm Information Systems and Business Administration Student. <br />
+                    In addition, I am a student in "full-stack Python" course at
+                    John Bryce. <br />
+                    I work in a student position as a "full-stack developer" at
+                    Picafuel.
+                  </p>
+                  <p>
+                    
+                  </p>
+                </div>
+                <!-- end about me -->
+                
+                <!-- about this project -->
+                <div class="col-lg-4">
+                  <img
+                    src="https://thumbs.dreamstime.com/z/project-management-icon-vector-illustration-project-management-icon-vector-illustration-white-background-119366874.jpg"
+                    style="width: 100px; height: 100px; border-radius: 50%"
+                    alt=""
+                  />
+                  <h2>About this project</h2>
+                  <p>
+                    This project is the first project I received as part of the
+                    John Bryce College Development course. <br />
+                    In this project we were asked to develop a system for a
+                    library. In this project I used:
+                    <br />
+                    Python, <br />
+                    HTML, <br />
+                    FLASK, <br />
+                    SQLALCHEMY, <br />
+                    SQLITE
+                  </p>
+                  <p>
+                    
+                  </p>
+                </div>
+                <!-- end about this project -->
+                
+                <!-- about this system -->
+                <div class="col-lg-4">
+                  <img
+                    src="https://thumbs.dreamstime.com/b/book-icon-black-circle-simple-literature-reading-newspaper-128431270.jpg"
+                    style="width: 100px; height: 100px; border-radius: 50%"
+                    alt=""
+                  />
+                  <h2>About this system</h2>
+                  <p>
+                    Customers page: <br>
+                    You can see all customers, add a new customer, search customer by name and delete customer. <br>
+                    Books page: <br>
+                    You can see all books, search book by name, add a new book, loan a book and delete book. When you want to add new book, as a Librarian you need first to find the customer who want to loan this book and to see his id. Then you can put his id in the loan's form. <br>
+                    Loans: <br>
+                    You can see all loans, search loan by customer name or by book name, see late returns, return loan. In this table you can see by color loan's status. <br>
+                  </p>
+                  <p>
+                    
+                  </p>
+                </div>
+                <!-- end about this system -->
+
+                <!-- welcome head -->
+                <h1>Welcome to Dafni's Library</h1>
+              </div>
+          </div>
+          
+    </main>
+
+  </body>
+
+{% endblock %}

@@ -1,0 +1,243 @@
+{%extends 'layout.html'%} 
+
+
+{% block body%}
+
+  <div class="container ">
+    <br>
+    <!---------------------- start search bar ------------------------------------->
+    <form
+      class="input-group"
+      method="GET"
+      class="form-inline my-2 my-lg-0"
+    >
+      <input
+        name="name"
+        class="form-control mr-sm-2"
+        type="text"
+        placeholder="Search book by name ..."
+        aria-label="Search"
+      />
+      <button class="btn btn-outline-primary" type="submit">Search</button>
+      <a class="btn btn-outline-primary" type="button" href="/books"
+      >Search all</a
+    >
+
+    <!-- button Add book for modal  -->
+    <button
+      style="position: sticky"
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModalAddBook"
+    >
+      ADD NEW BOOK
+    </button>
+    <!-- end button Add book for modal -->
+    </form>
+
+    <!------------------------- end search bar ------------------------------------>
+
+    
+  </div>
+  <div class="container ">
+    <br>
+  <!---------------------------------- start cards --------------------------------->
+  <div class="row row-cols-1 row-cols-md-4 g-4">
+    <br>
+    <br>
+  
+    {%for book in booksList%}
+  <div class="col">
+    <!-- real -->
+    <div class="card" style="max-width: 18rem;background-color: rgb(235, 209, 183); border-top-left-radius: 10%;">
+      
+        <img style="width: 100%; height:300px; border-top-left-radius: 10%;" src="{{book.Image}}" alt="">
+        <div class="card-header">Book number {{loop.index}}</div>
+        <div class="card-body text-secondary">
+          <h5 class="card-title">"{{book.Name}}"</h5>
+          <p class="card-text">
+            Author : {{book.Author}}
+            <br />
+            Publish year : {{book.YearPublished}}
+            <br />
+            {% if book.Type == 1 %} Rent time : up to 10 days {% elif book.Type
+            == 2 %} Rent time : up to 5 days {% else %} Rent time : up to 2 days
+            {% endif %}
+            <br>
+            Status : {{book.Status}}
+            <br />
+            Book ID : {{book.id}}
+          </p>
+          <br />
+          <!-- Button trigger modal select customer ------------------>
+          {% if book.Status != 'Available' %}
+          
+          <button
+            style="position: sticky"
+            type="button"
+            class="btn btn-outline-success"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal{{loop.index}}"
+            title="This book is not available"
+            disabled
+          >
+            Loaned
+          </button>
+          {% else %}
+          <button
+          style="position: sticky"
+          type="button"
+          class="btn btn-success"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal{{loop.index}}"
+          
+        >
+          Loan
+        </button>
+        {% endif %}
+          <!----------end  Button trigger modal select customer  --------------- -->
+          <!-- start customer modal -->
+          <div
+            class="modal fade"
+            id="exampleModal{{loop.index}}"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              if you don't remember please go and check customers table
+              <div class="modal-content"> 
+                <div class="modal-header">
+                  <h5
+                    class="modal-title"
+                    style="color: black"
+                    id="exampleModalLabel"
+                  >
+                  Customer's details 
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <!------------- start form ----------------->
+                  <form action="/addRent" method="POST">
+                    <div class="mb-3">
+                    <label style="color: black;" class="form-label">Customer Id:</label>
+                    <input
+                      class="form-control"
+                      name="custId"
+                    />
+                  </div>
+                    <input type="hidden" name="bookId" value="{{book.id}}" />
+                    <input type="hidden" name="booktype" value="{{book.Type}}"/>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                  </form>
+                  <!--------------- end form ------------------>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end customer modal -->
+
+          <!--start delete button -->
+          <a
+            class="btn btn-danger"
+            title="to delete this book"
+            href="/deleteBook?name={{book.Name}}&id={{book.id}}"
+            >Delete</a
+          >
+          <!-- end delete button -->
+        </div>
+      
+    </div>
+  </div>
+    
+    {% endfor %}
+  </div>
+  <!------------------------------------ end cards ---------------------------->
+</div>
+
+<!------------------------------ Modal -------------------------------------->
+<div
+  class="modal fade"
+  id="exampleModalAddBook"
+  tabindex="-1"
+  aria-labelledby="exampleModalAddBook"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalAddBook">Add book</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="/addBook" method="POST">
+          <div class="mb-3">
+            <label  class="form-label">Name:</label>
+          <input class="form-control" name="name" />
+          </div>
+          <div class="mb-3">
+            <label  class="form-label">Author:</label>
+          <input class="form-control" name="author" />
+        </div>
+        <div class="mb-3">
+          <label  class="form-label">YearPublished:</label>
+          <input
+            class="form-control"
+            name="yearpublished"
+          />
+        </div>
+          <div class="mb-3">
+            <label  class="form-label">Type:</label>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            name="type"
+          >
+            <option value="1">up to 10 days</option>
+            <option value="2">up to 5 days</option>
+            <option value="3">up to 2 days</option>
+          </select>
+        </div>
+       
+        <div class="mb-3">
+          <label  class="form-label">Img URL:</label>
+          <input class="form-control" name="image">
+          
+        </div>
+        <div class="mb-3">
+          <input class="btn btn-primary" type="submit" />
+        </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!----------------------------- end modal ------------------------------>
+
+{% endblock %}

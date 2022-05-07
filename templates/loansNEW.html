@@ -1,0 +1,68 @@
+{% extends 'layout.html'%}
+{% block x %}
+
+{% endblock %}
+{% block body %}
+<div class="container">
+  <br>
+  <!-------------------------  start search form bar ----------------------------------->
+  <form class="input-group" method="GET" class="form-inline my-2 my-lg-0">
+    <input
+      name="name"
+      class="form-control mr-sm-2"
+      type="text"
+      placeholder="Search customer / book  name ..."
+      aria-label="Search"
+    />
+    
+    <button class="btn btn-outline-primary" type="submit">Search</button>
+    <a href="/loansNEW" class="btn btn-outline-primary" type="submit">All loans</a>
+    <a href="/lateReturn" class="btn btn-primary" type="submit">Late return</a>
+    </form> <br>
+  <!------------------ start table --------------->
+<table class="table table-striped">
+    <thead class="thead-light">
+      <tr class="table table-dark">
+        <!-- <th scope="col">#</th> -->
+        <th scope="col">ID</th>
+        <th scope="col">Customer name</th>
+        <th scope="col">Book name</th>
+        <th scope="col">Book ID</th>
+        <th scope="col">Loan date</th>
+        <th scope="col">Return date</th>
+        <th scope="col">Actual return date</th>
+        <th scope="col">Status</th>
+        <th scope="col">  </th>
+      </tr>
+    </thead>
+    <tbody>
+        {%for loan in loansList%}
+        <tr>
+          <td>{{loan.id}}</td>
+          <td>{{loan.CUSTOMERNAME}}</td>
+          <td>{{loan.BOOKNAME}}</td>
+          <td>{{loan.BookID}}</td>
+          <td>{{loan.Loandate}}</td>
+          <td>{{loan.Returndate}}</td>
+          <td>{{loan.ActualReturndate}}</td>
+          {% if loan.Status != 'Not returned yet' %}
+          <td style="color:rgb(97, 182, 12);">{{loan.Status}}</td>
+          {% else %}
+          <td style="color: red;">{{loan.Status}}</td>
+          {% endif %}
+          {% if loan.Status == 'Not returned yet' %}
+          <td><a
+            class="btn btn-outline-success"
+            href="/loansNEW?bookid={{loan.BookID}}&loanid={{loan.id}}"
+            >Return this book</a
+          ></td>
+          {% else %}
+          <td> </td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  <!----------------------- end table --------------------------->
+  </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'layout.html'%}
+{% block body %}
+<div class="container">
+<table class="table table-striped">
+    <thead class="thead-light">
+      <tr class="table table-dark">
+        <!-- <th scope="col">#</th> -->
+        <th scope="col">Book ID</th>
+        <th scope="col">Customer ID</th>
+        <th scope="col">loan date</th>
+        <th scope="col">return date</th>
+      </tr>
+    </thead>
+    <tbody>
+        {%for loan in loansList%}
+        <tr>
+          <td>{{loan.BookID}}</td>
+          <td>{{loan.CustID}}</td>
+          <td>{{loan.Loandate}}</td>
+          <td>{{loan.Returndate}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
